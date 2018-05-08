@@ -11,6 +11,11 @@ const buildPolicy = (serviceName, stage, region) => {
         Action: [
           'cloudformation:List*',
           'cloudformation:Get*',
+          'cloudformation:Describe*',
+          'cloudformation:DescribeStacks',
+          'cloudformation:DescribeStackEvents',
+          'cloudformation:DescribeStackResource',
+          'cloudformation:DescribeStackResources',          
           'cloudformation:PreviewStackUpdate',
           'cloudformation:ValidateTemplate'
         ],
@@ -22,7 +27,6 @@ const buildPolicy = (serviceName, stage, region) => {
           "cloudformation:CreateStack",
           "cloudformation:CreateUploadBucket",
           "cloudformation:DeleteStack",
-          "cloudformation:Describe*",
           "cloudformation:UpdateStack"
         ],
         Resource: [
@@ -142,7 +146,7 @@ const buildPolicy = (serviceName, stage, region) => {
 };
 
 const escapeValFilename = function(val) {
-  return val === '*' ? '_star_' : val;
+  return val === '*' ? 'any' : val;
 };
 
 module.exports = class extends Generator {
@@ -163,6 +167,10 @@ module.exports = class extends Generator {
       type: String,
       default: '*'
     });
+  }
+  
+  initializing() {
+    this.props = {};
   }
 
   prompting() {
