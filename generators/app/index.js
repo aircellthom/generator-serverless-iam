@@ -177,13 +177,13 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'stage',
         message: 'You can specify a specific stage, if you like:',
-        default: '*'
+        default: 'any'
       },
       {
         type: 'input',
         name: 'region',
         message: 'You can specify a specific region, if you like:',
-        default: '*'
+        default: 'any'
       },
       {
         type: 'confirm',
