@@ -45,6 +45,21 @@ const buildPolicy = (serviceName, stage, region) => {
       {
         Effect: 'Allow',
         Action: [
+          'lambda:AddPermission',
+          'lambda:CreateAlias',
+          'lambda:DeleteFunction',
+          'lambda:InvokeFunction',
+          'lambda:PublishVersion',
+          'lambda:RemovePermission',
+          'lambda:Update*'
+        ],
+        Resource: [
+          `arn:aws:lambda:${region}:*:function:${serviceName}-${stage}-*`
+        ]
+      },
+      {
+        Effect: 'Allow',
+        Action: [
           "s3:CreateBucket",
           "s3:DeleteBucket",
           "s3:ListBucket",
@@ -60,21 +75,6 @@ const buildPolicy = (serviceName, stage, region) => {
           "s3:DeleteObject"
         ],
         Resource: [`arn:aws:s3:::${serviceName}*serverlessdeploy*`]
-      },
-      {
-        Effect: 'Allow',
-        Action: [
-          'lambda:AddPermission',
-          'lambda:CreateAlias',
-          'lambda:DeleteFunction',
-          'lambda:InvokeFunction',
-          'lambda:PublishVersion',
-          'lambda:RemovePermission',
-          'lambda:Update*'
-        ],
-        Resource: [
-          `arn:aws:lambda:${region}:*:function:${serviceName}-${stage}-*`
-        ]
       },
       {
         Effect: 'Allow',
@@ -238,38 +238,17 @@ module.exports = class extends Generator {
     const region = this.slsSettings.region;
 
     const policy = buildPolicy(project, stage, region);    
-    if (this.slsSettings.dynamodb) {
-      policy.Statement.push({
-        Effect: 'Allow',
-        Action: ['dynamodb:*'],
-        Resource: ['arn:aws:dynamodb:*:*:table/*']
-      });
-    }
-
-    if (this.slsSettings.s3) {
-      policy.Statement.push({
-        Effect: 'Allow',
-        Action: ['s3:CreateBucket'],
-        Resource: [`arn:aws:s3:::*`]
-      });
-    }
 
     if (this.yaml.provider.iamRoleStatements) {
       for (var j = 0; j < this.yaml.provider.iamRoleStatements.length; j++){
         var role = this.yaml.provider.iamRoleStatements[j];
-        //handle dynamo specific resources
-        // var resource = role.Action[0].startsWith('dynamodb') ? "table/*" : "*"
 
         policy.Statement.push({
           Effect: role.Effect,
           Action: role.Action,
           Resource: role.Resource || [`arn:aws:${role.Action[0].split(':')[0]}:*:*:*`] //no resource
         });
-        
-        // if (role.Effect === 'Allow') {
-        //   this.log(role.Action);
 
-        // }
       }
     }
 
