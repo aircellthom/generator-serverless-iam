@@ -34,7 +34,7 @@ const buildPolicy = (serviceName, stage, region) => {
           "cloudformation:DescribeStacks"
         ],
         Resource: [
-          `arn:aws:cloudformation:${region}:*:stack/${serviceName}-${stage}/*`
+          `arn:aws:cloudformation:${region}:*:stack/${serviceName}-${stage}*`
         ]
       },
       {
@@ -54,7 +54,7 @@ const buildPolicy = (serviceName, stage, region) => {
           'lambda:Update*'
         ],
         Resource: [
-          `arn:aws:lambda:${region}:*:function:${serviceName}-${stage}-*`
+          `arn:aws:lambda:${region}:*:function:${serviceName}-${stage}*`
         ]
       },
       {
