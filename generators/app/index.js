@@ -59,42 +59,23 @@ const buildPolicy = (serviceName, stage, region) => {
       },
       {
         Effect: 'Allow',
-        Action: [
-          "s3:CreateBucket",
-          "s3:DeleteBucket",
-          "s3:ListBucket",
-          "s3:ListBucketVersions"
+        Action: [         
+          "s3:List*",
+          "s3:Get*",
+          "s3:HeadBucket"
         ],
-        Resource: [`arn:aws:s3:::${serviceName}*serverlessdeploy*`]
+        Resource: [`*`]
       },
       {
         Effect: 'Allow',
-        Action: [
+        Action: [        
+          "s3:CreateBucket",             
           "s3:PutObject",
           "s3:GetObject",
           "s3:DeleteObject"
         ],
         Resource: [`arn:aws:s3:::${serviceName}*serverlessdeploy*`]
-      },
-      {
-        Effect: 'Allow',
-        Action: [
-          'apigateway:GET',
-          'apigateway:POST',
-          'apigateway:PUT',
-          'apigateway:DELETE'
-        ],
-        Resource: [
-          `arn:aws:apigateway:*::${serviceName}*`
-        ]
-      },
-      {
-        Effect: 'Allow',
-        Action: 'kinesis:*',
-        Resource: [
-          `arn:aws:kinesis:*:*:stream/${serviceName}-${stage}-${region}`
-        ]
-      },      
+      },     
       {
         Effect: 'Allow',
         Action: ['iam:PassRole'],
