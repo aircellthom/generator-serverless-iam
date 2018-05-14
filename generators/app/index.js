@@ -34,7 +34,7 @@ const buildPolicy = (serviceName, stage, region) => {
           "cloudformation:DescribeStacks"
         ],
         Resource: [
-          `arn:aws:cloudformation:${region}:*:stack/${serviceName}-${stage}*`
+          `arn:aws:cloudformation:${region}:*:stack/${serviceName}-*-${stage}*`
         ]
       },
       {
@@ -54,7 +54,7 @@ const buildPolicy = (serviceName, stage, region) => {
           'lambda:Update*'
         ],
         Resource: [
-          `arn:aws:lambda:${region}:*:function:${serviceName}-${stage}*`
+          `arn:aws:lambda:${region}:*:function:${serviceName}-*-${stage}*`
         ]
       },
       {
@@ -85,13 +85,13 @@ const buildPolicy = (serviceName, stage, region) => {
         Effect: 'Allow',
         Action: 'iam:*',
         Resource: [
-          `arn:aws:iam::*:role/${serviceName}-${stage}-${region}-lambdaRole`
+          `arn:aws:iam::*:role/${serviceName}-*-${stage}-${region}-lambdaRole`
         ]
       },
       {
         Effect: 'Allow',
         Action: 'sqs:*',
-        Resource: [`arn:aws:sqs:*:*:${serviceName}-${stage}-${region}`]
+        Resource: [`arn:aws:sqs:*:*:${serviceName}-*-${stage}-${region}`]
       },
       {
         Effect: 'Allow',
@@ -124,7 +124,7 @@ const buildPolicy = (serviceName, stage, region) => {
       {
         Effect: 'Allow',
         Action: ['events:Put*', 'events:Remove*', 'events:Delete*'],
-        Resource: [`arn:aws:events:*:*:rule/${serviceName}-${stage}-${region}`]
+        Resource: [`arn:aws:events:*:*:rule/${serviceName}-*-${stage}-${region}`]
       }
     ]
   };
