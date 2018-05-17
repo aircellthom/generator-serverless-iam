@@ -85,7 +85,9 @@ const buildPolicy = (serviceName, stage, region) => {
         Effect: 'Allow',
         Action: 'iam:*',
         Resource: [
-          `arn:aws:iam::*:role/${serviceName}*${stage}-${region}-lambdaRole`
+          `arn:aws:iam::*:role/${serviceName}*${stage}-${region}-lambdaRole*`,
+          `arn:aws:iam::*:role/${serviceName}*${stage}-kinesisRole*`,
+          `arn:aws:iam::*:role/${serviceName}*${stage}-iotRole*`
         ]
       },
       {
