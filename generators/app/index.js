@@ -39,7 +39,7 @@ const buildPolicy = (serviceName, stage, region) => {
       },
       {
         Effect: 'Allow',
-        Action: ['lambda:Get*', 'lambda:List*', 'lambda:Create*'],
+        Action: ['lambda:Get*', 'lambda:List*', 'lambda:Create*', 'lambda:*EventSource*'],
         Resource: ['*']
       },
       {
