@@ -102,7 +102,7 @@ const buildPolicy = (serviceName, stage, region) => {
       },
       {
         Effect: 'Allow',
-        Action: ['sns:List*', 'sns:Check*', 'sns:Get*'],
+        Action: ['sns:List*', 'sns:Check*', 'sns:Get*', 'sns:Subscribe*'],
         Resource: ['*']
       },      
       {
