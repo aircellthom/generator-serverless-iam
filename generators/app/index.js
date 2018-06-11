@@ -101,6 +101,11 @@ const buildPolicy = (serviceName, stage, region) => {
         Resource: ['*']
       },
       {
+        Effect: 'Allow',
+        Action: ['sns:List*', 'sns:Check*', 'sns:Get*'],
+        Resource: ['*']
+      },      
+      {
         Action: [
           'logs:CreateLogGroup',
           'logs:CreateLogStream',
