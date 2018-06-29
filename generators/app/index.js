@@ -51,6 +51,7 @@ const buildPolicy = (serviceName, stage, region) => {
           'lambda:InvokeFunction',
           'lambda:PublishVersion',
           'lambda:RemovePermission',
+          'lambda:PutFunctionConcurrency',
           'lambda:Update*'
         ],
         Resource: [
