@@ -88,6 +88,7 @@ const buildPolicy = (serviceName, stage, region) => {
         Resource: [
           `arn:aws:iam::*:role/${serviceName}*${stage}-${region}-lambdaRole*`,
           `arn:aws:iam::*:role/${serviceName}*${stage}-kinesisRole*`,
+          `arn:aws:iam::*:role/${serviceName}*${stage}-firehoseRole*`,          
           `arn:aws:iam::*:role/${serviceName}*${stage}-iotRole*`
         ]
       },
