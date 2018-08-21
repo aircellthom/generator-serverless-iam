@@ -47,7 +47,7 @@ const buildPolicy = (serviceName, stage, region) => {
         Action: [
           'lambda:AddPermission',
           'lambda:CreateAlias',
-          'lambda:DeleteFunction',
+          'lambda:DeleteFunction*',
           'lambda:InvokeFunction',
           'lambda:PublishVersion',
           'lambda:RemovePermission',
